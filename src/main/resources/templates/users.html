@@ -2,28 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Пользователь</title>
+    <title>Пользователи</title>
 </head>
 <body>
-<label for="id">ID: </label>
-<p id="id" th:text="${user.getId()}">value</p>
-<label for="name">Name: </label>
-<p id="name" th:text="${user.getUsername()}">value</p>
-<label for="age">Age: </label>
-<p id="age" th:text="${user.getAge()}">value</p>
-
-<a th:href="@{/admin/edit(id=${user.getId()})}">Изменить</a>
+<table>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td><a th:href="@{/user(id=${user.getId()})}">Подробнее</a></td>
+    </tr>
+</table>
 <br>
-<br>
-
-<form th:method="POST" th:action="@{/admin/delete}" th:object="${user}">
-    <input type="hidden" th:field="*{id}"/>
-    <input type="submit" value="Удалить">
-</form>
-<br>
-<form th:method="GET" th:action="@{admin/users}">
-    <input type="submit" value="Назад">
-</form>
+<a th:href="@{/admin/new}">Создать пользователя!</a>
 <br>
 <form th:if="${isAuthenticated != null ? !isAuthenticated : true}" action="/login" method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
