@@ -41,6 +41,7 @@ td {
 td:last-child {
     text-align: right !important;
 }
+
 /* Основной контейнер */
 .col-md-9 {
     background-color: #f6f7f8;

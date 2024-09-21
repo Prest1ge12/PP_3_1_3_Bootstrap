@@ -25,22 +25,22 @@
     <label for="age">Введите возраст: </label>
     <input type="text" th:field="*{age}" id="age"></input>
     <br>
-<!--    <label for="age">Новый пароль: </label>-->
-<!--    <input type="text" th:field="*{password}" id="password"></input>-->
-<!--    <br>-->
-<!--    <label for="age">Назначить роль: </label>-->
-<!--    <input type="text" th:field="*{roles}" id="roles"></input>-->
-<!--    <br>-->
+    <!--    <label for="age">Новый пароль: </label>-->
+    <!--    <input type="text" th:field="*{password}" id="password"></input>-->
+    <!--    <br>-->
+    <!--    <label for="age">Назначить роль: </label>-->
+    <!--    <input type="text" th:field="*{roles}" id="roles"></input>-->
+    <!--    <br>-->
     <input type="submit" value="Создать"></input>
     <a th:href="@{/admin/users}">Назад</a>
 </form>
 <br>
 <form th:if="${isAuthenticated != null ? !isAuthenticated : true}" action="/login" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <button type="submit">Login</button>
 </form>
 <form th:if="${isAuthenticated != null ? isAuthenticated : false}" action="/logout" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <button type="submit">Logout</button>
 </form>
 </form>

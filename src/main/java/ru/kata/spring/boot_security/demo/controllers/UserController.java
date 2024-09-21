@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/new/create")
-    public String createUser(@ModelAttribute("newUser") User user,Model model) {
+    public String createUser(@ModelAttribute("newUser") User user, Model model) {
         try {
             userService.saveUser(user);
         } catch (IllegalArgumentException e) {

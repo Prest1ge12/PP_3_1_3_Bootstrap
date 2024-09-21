@@ -16,7 +16,7 @@
                     <h3 class="text-center">Регистрация</h3>
                     <!-- Форма регистрации -->
                     <form th:method="POST" th:action="@{/registration/reg}" th:object="${user}">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <div class="mb-3">
                             <label for="username" class="form-label">Имя пользователя</label>
                             <input type="text" th:field="*{username}" class="form-control" id="username" required>
@@ -39,7 +39,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Подтвердите пароль</label>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                   required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
                     </form>

@@ -26,6 +26,7 @@ public class UserSecurityDetails implements UserDetails {
     public String getPassword() {
         return this.user.getPassword();
     }
+
     //Получение Email
     @Override
     public String getUsername() {

@@ -112,48 +112,55 @@
                             <td><span th:each="rols : ${user.getRoles()}"><span
                                     th:text="${rols.getRoleNameWithoutPref()}"> </span> </span></td>
                             <td>
-<!--   //                             <a class="btn btn-primary btn-sm" th:href="@{/admin/edit(id=${user.getId()})}">Edit</a>-->
+                                <!--   //                             <a class="btn btn-primary btn-sm" th:href="@{/admin/edit(id=${user.getId()})}">Edit</a>-->
                                 <a href="javascript:void(0);" class="btn btn-primary btn-sm"
                                    th:attr="onclick='editUser(' + ${user.getId()} + ');'"
                                    data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</a>
                                 <!-- Модальное окно для редактирования пользователя -->
-                                <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="editUserModal" tabindex="-1"
+                                     aria-labelledby="editUserModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="editUserForm" th:action="@{/admin/update}" method="post">
-                                                    <input type="hidden" id="userId" name="id" />
+                                                    <input type="hidden" id="userId" name="id"/>
                                                     <div class="mb-3">
                                                         <label for="updateName" class="form-label">Имя</label>
-                                                        <input type="text" class="form-control" id="updateName" name="username" required>
+                                                        <input type="text" class="form-control" id="updateName"
+                                                               name="username" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="updateLastName" class="form-label">Фамилия</label>
-                                                        <input type="text" class="form-control" id="updateLastName" name="usersurname" required>
+                                                        <input type="text" class="form-control" id="updateLastName"
+                                                               name="usersurname" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="updateEmail" class="form-label">Email</label>
-                                                        <input type="text" class="form-control" id="updateEmail" name="userEmail" required>
+                                                        <input type="text" class="form-control" id="updateEmail"
+                                                               name="userEmail" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="updateAge" class="form-label">Возраст</label>
-                                                        <input type="number" class="form-control" id="updateAge" name="age" required>
+                                                        <input type="number" class="form-control" id="updateAge"
+                                                               name="age" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="updateRole" class="form-label">Роли</label>
-                                                        <input type="text" class="form-control" id="updateRole" name="roles" required>
+                                                        <input type="text" class="form-control" id="updateRole"
+                                                               name="roles" required>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                                    <button type="submit" class="btn btn-primary">Сохранить изменения
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
 
 
                                 <form th:action="@{/admin/delete}" method="post" style="display: inline;">

@@ -38,7 +38,7 @@ public class Role implements GrantedAuthority {
     }
 
     public String getRoleNameWithoutPref() {
-        return  roleName.replaceAll("ROLE_", "");
+        return roleName.replaceAll("ROLE_", "");
     }
 
     public void setRoleName(String name) {
