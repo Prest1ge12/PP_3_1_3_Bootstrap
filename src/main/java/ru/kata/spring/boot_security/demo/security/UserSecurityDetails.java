@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class UserSecurityDetails implements UserDetails {
 
@@ -18,18 +19,17 @@ public class UserSecurityDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .toList();
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
     }
 
     @Override
     public String getPassword() {
         return this.user.getPassword();
     }
-
+    //Получение Email
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user.getUserEmail();
     }
 
 

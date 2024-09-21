@@ -16,9 +16,13 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String roleName;
 
     public Role() {
+    }
+
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
 
     public Long getId() {
@@ -29,24 +33,28 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getRoleNameWithoutPref() {
+        return  roleName.replaceAll("ROLE_", "");
+    }
+
+    public void setRoleName(String name) {
+        this.roleName = name;
     }
 
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + roleName + '\'' +
                 '}';
     }
 
     @Override
     public String getAuthority() {
-        return "";
+        return roleName;
     }
 }

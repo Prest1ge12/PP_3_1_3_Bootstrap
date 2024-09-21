@@ -23,7 +23,7 @@ public class SecurityServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOpt = securityUserRepository.findByUsername(username);
+        Optional<User> userOpt = securityUserRepository.findByEmail(username);
         if (userOpt.isEmpty()) {
             throw new UsernameNotFoundException(String.format("User '%s' не найден", username));
         }

@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -21,16 +23,24 @@ public class User {
 
     private String username;
 
+    private String usersurname;
+
     private int age;
+    @Column(name = "user_email", unique = true, nullable = false)
+    private String userEmail;
 
     private String password;
 
     public User() {
     }
 
-    public User(String name, int age) {
+    public User(String username, String usersurname, int age, String userEmail, String password, Collection<Role> roles) {
+        this.username = username;
+        this.usersurname = usersurname;
         this.age = age;
-        this.username = name;
+        this.userEmail = userEmail;
+        this.password = password;
+        this.roles = (roles != null) ? roles : new ArrayList<>();
     }
 
     public Long getId() {
@@ -40,6 +50,15 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
 
     public String getUsername() {
         return username;
@@ -61,6 +80,14 @@ public class User {
         return password;
     }
 
+    public String getUsersurname() {
+        return usersurname;
+    }
+
+    public void setUsersurname(String usersurname) {
+        this.usersurname = usersurname;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -69,6 +96,7 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Collection<Role> roles;
 
     public Collection<Role> getRoles() {
@@ -83,8 +111,12 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + username + '\'' +
+                ", username='" + username + '\'' +
+                ", usersurname='" + usersurname + '\'' +
                 ", age=" + age +
+                ", userEmail='" + userEmail + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
