@@ -1,14 +1,12 @@
 package ru.kata.spring.boot_security.demo.dao;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -18,8 +16,8 @@ public class UserDaoImp implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserDaoImp() {
+    }
 
     @Override
     public List<User> getAllUsers() {
@@ -29,7 +27,7 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public User getUser(Long id) {
+    public User getUserById(Long id) {
         User user = entityManager.find(User.class, id);
         if (user == null) {
             throw new EntityNotFoundException("User not found with id: " + id);
@@ -38,30 +36,18 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        entityManager.persist(user);
-        if (user.getRoles() != null) {
-            for (Role role : user.getRoles()) {
-                entityManager.persist(role);
-            }
-        }
+    public void saveUser(User newUser) {
+        entityManager.persist(newUser);
     }
 
     @Override
-    public void update(Long id, User updateUser) {
-        User existingUser = entityManager.find(User.class, id);
-        if (existingUser == null) {
-            throw new EntityNotFoundException("User not found with id: " + id);
-        }
-        existingUser.setUsername(updateUser.getUsername());
-        existingUser.setAge(updateUser.getAge());
-        existingUser.setRoles(updateUser.getRoles()); // Обновление ролей
-        entityManager.merge(existingUser);
+    public void updateUser(User updateUser) {
+        entityManager.merge(updateUser);
     }
 
+
     @Override
-    public void delete(Long id) {
+    public void deleteUser(Long id) {
         User user = entityManager.find(User.class, id);
         if (user == null) {
             throw new EntityNotFoundException("User not found with id: " + id);
@@ -69,5 +55,14 @@ public class UserDaoImp implements UserDao {
         entityManager.remove(user);
     }
 
-
+    @Override
+    public User findByUsername(String name) {
+        try {
+            return entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new EntityNotFoundException("User not found with username: " + name);
+        }
+    }
 }

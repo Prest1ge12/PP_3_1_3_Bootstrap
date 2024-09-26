@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "role")
@@ -37,24 +39,31 @@ public class Role implements GrantedAuthority {
         return roleName;
     }
 
-    public String getRoleNameWithoutPref() {
-        return roleName.replaceAll("ROLE_", "");
-    }
-
     public void setRoleName(String name) {
         this.roleName = name;
     }
 
     @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + roleName + '\'' +
-                '}';
+    public String getAuthority() {
+        return getRoleName();
     }
 
     @Override
-    public String getAuthority() {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(roleName, role.roleName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(roleName);
+    }
+
+    @Override
+    public String toString() {
         return roleName;
     }
+
 }
