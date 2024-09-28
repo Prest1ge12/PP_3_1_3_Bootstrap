@@ -11,7 +11,6 @@ public class LoginController {
         return "redirect:/login";
     }
 
-
     @GetMapping("/login")
     public String index() {
         return "/login/index";

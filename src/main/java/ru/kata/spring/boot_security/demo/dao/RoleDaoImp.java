@@ -1,8 +1,6 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 
 import javax.persistence.EntityManager;
@@ -12,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-@Transactional(readOnly = true)
 public class RoleDaoImp implements RoleDao {
 
     @PersistenceContext
